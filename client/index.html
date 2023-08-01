@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <section id="pageHeader">
+        <header>
+            <h1 id="pageName">Get It Done.</h1>
+        </header>
+    </section>
+    <section id="todoInput">
+        <h1>Enter </h1>
+        <label for="newTodo">Add to list:</label>
+        <br>
+        <input type="text" id="newTodo" placeholder="What do you have to do?">
+        <br>
+        <br>
+        <label for="todoDetails">Additional Notes:</label>
+        <br>
+        <textarea name="Details" id="todoDetails" cols="30" rows="10"></textarea>
+        <br>
+        <br>
+        <button id="addToList">Add</button>
+        <br>
+        <br>
+        <label for="clearList">Clear List:</label>
+        <button id="clearList">Delete</button>
+    </section>
+    <br>
+    <br>
+    <section id="todoInfo"></section>
+    <footer>
+
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="./main.js"></script>
+</body>
+</html>
