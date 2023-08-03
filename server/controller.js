@@ -19,7 +19,13 @@ module.exports = {
   },
 
   deleteTodo: (req, res) => {
-    todoDatabase = []
+    todoDatabase = [];
+    res.status(200).send(todoDatabase)
+  },
+
+  deleteTodoContent: (req, res) => {
+    const todoId = parseInt(req.params.id);
+    todoDatabase = todoDatabase.filter((todo) => todo.todoId !== todoId)
     res.status(200).send(todoDatabase)
   },
 };

@@ -13,17 +13,33 @@ listItem = (todoArray) => {
     todoContent.innerHTML = `
     <header id = "todoContentHeader">
     ${todo.todoName}
-    <button onclick="deleteTodoContent()">X</button>
+    <button id= "deleteContentBtn" onclick="deleteTodoContent(${todo.todoId})">X</button>
     </header>
     <br>
     <div id= "todoContentNotes">${todo.todoNotes}
     <br>
-    <button onclick="finishTodo(event)">Finished</button>
-    <button onclick="editTodo(event)">Edit</button>
+    <button id = "finishBtn" onclick="finishTodo(event)">Finished</button>
+    <button id = "editBtn" onclick="editTodo(event)">Edit</button>
     </div>
-    `
+    `;
+    todoContent.dataset.todoId = todo.todoId;
     listDisplay.appendChild(todoContent)
   })
+};
+
+const deleteTodoContent = (todoId) => {
+  axios
+  .delete (`${baseUrl}/api/todo/${todoId}`)
+  .then ((res) => listItem(res.data))
+  .catch((err) => console.log(err))
+};
+
+const finishTodo = (event) => {
+
+};
+
+const editTodo = () => {
+
 };
 
 const addTodo = (event) => {
@@ -37,14 +53,16 @@ const addTodo = (event) => {
   .post(`${baseUrl}/api/todo`, todoBlock)
   .then((res) => listItem(res.data))
   .catch((err) => console.log(err))
+  newTodo.value = '';
+  todoNotes.value = '';
 };
 
 const deleteTodo = () => {
   axios
   .delete(`${baseUrl}/api/todo`)
-  .then((res) => todoItem(res.data))
+  .then((res) => listItem(res.data))
   .catch((err) => console.log(err))
-}
+};
 
 addToList.addEventListener('click', addTodo)
 clearList.addEventListener('click', deleteTodo)
