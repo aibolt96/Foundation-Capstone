@@ -4,6 +4,10 @@ const todoNotes = document.getElementById('todoNotes')
 const addToList = document.querySelector("#addToList")
 const clearList = document.querySelector("#clearList")
 
+const finishTodo = (todoId) => {
+  const todoContent = document.querySelector(`[data-todo-id="${todoId}"]`);
+  todoContent.classList.toggle("finished");
+};
 
 listItem = (todoArray) => {
   const listDisplay = document.getElementById('listDisplay')
@@ -16,11 +20,14 @@ listItem = (todoArray) => {
     <button id= "deleteContentBtn" onclick="deleteTodoContent(${todo.todoId})">X</button>
     </header>
     <br>
-    <div id= "todoContentNotes">${todo.todoNotes}
-    <br>
-    <button id = "finishBtn" onclick="finishTodo(event)">Finished</button>
-    <button id = "editBtn" onclick="editTodo(event)">Edit</button>
+    <div id= "todoContentNotes">
+    ${todo.todoNotes}
     </div>
+    <br>
+    <section id = "btns">
+    <button id = "finishBtn" class="no-strike-through" onclick="finishTodo(${todo.todoId})">Finished</button>
+    <button id = "editBtn" class="no-strike-through" onclick="editTodo(event)">Edit</button>
+    </section>
     `;
     todoContent.dataset.todoId = todo.todoId;
     listDisplay.appendChild(todoContent)
@@ -32,10 +39,6 @@ const deleteTodoContent = (todoId) => {
   .delete (`${baseUrl}/api/todo/${todoId}`)
   .then ((res) => listItem(res.data))
   .catch((err) => console.log(err))
-};
-
-const finishTodo = (event) => {
-
 };
 
 const editTodo = () => {

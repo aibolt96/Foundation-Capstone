@@ -1,0 +1,7 @@
+.finished:not(.no-strike-through) {
+    text-decoration: line-through;
+  }
+
+  #btns button {
+    display: inline-block
+  }
