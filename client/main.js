@@ -15,9 +15,9 @@ listItem = (todoArray) => {
   todoArray.forEach((todo) => {
     const todoContent = document.createElement("div")
     todoContent.innerHTML = `
+    <button id= "deleteContentBtn" onclick="deleteTodoContent(${todo.todoId})">X</button>
     <header id = "todoContentHeader">
     ${todo.todoName}
-    <button id= "deleteContentBtn" onclick="deleteTodoContent(${todo.todoId})">X</button>
     </header>
     <br>
     <div id= "todoContentNotes">
@@ -26,7 +26,7 @@ listItem = (todoArray) => {
     <br>
     <section id = "btns">
     <button id = "finishBtn" class="no-strike-through" onclick="finishTodo(${todo.todoId})">Finished</button>
-    <button id = "editBtn" class="no-strike-through" onclick="editTodo(event)">Edit</button>
+    <button id = "editBtn" class="no-strike-through" onclick="editTodo(${todo.todoId})">Edit</button>
     </section>
     `;
     todoContent.dataset.todoId = todo.todoId;
@@ -41,8 +41,45 @@ const deleteTodoContent = (todoId) => {
   .catch((err) => console.log(err))
 };
 
-const editTodo = () => {
+editTodo = (todoId) => {
+  const todoContent = document.querySelector(`[data-todo-id="${todoId}"]`);
+  const todoNameElement = todoContent.querySelector("#todoContentHeader");
+  const todoNotesElement = todoContent.querySelector("#todoContentNotes");
 
+  const currentTodoName = todoNameElement.innerText;
+  const currentTodoNotes = todoNotesElement.innerText;
+
+  const inputTodoName = document.createElement("input");
+  inputTodoName.type = "text";
+  inputTodoName.value = currentTodoName;
+
+  const inputTodoNotes = document.createElement("textarea");
+  inputTodoNotes.value = currentTodoNotes;
+
+  todoNameElement.innerHTML = "";
+  todoNameElement.appendChild(inputTodoName);
+
+  todoNotesElement.innerHTML = "";
+  todoNotesElement.appendChild(inputTodoNotes);
+
+  const editButton = todoContent.querySelector("#editBtn");
+  editButton.innerText = "Save";
+  editButton.onclick = () => saveTodoChanges(todoId, inputTodoName.value, inputTodoNotes.value);
+};
+
+saveTodoChanges = (todoId, updatedTodoName, updatedTodoNotes) => {
+ 
+  const todoContent = document.querySelector(`[data-todo-id="${todoId}"]`);
+  const todoNameElement = todoContent.querySelector("#todoContentHeader");
+  const todoNotesElement = todoContent.querySelector("#todoContentNotes");
+
+ 
+  todoNameElement.innerHTML = updatedTodoName;
+  todoNotesElement.innerHTML = updatedTodoNotes;
+
+  const editButton = todoContent.querySelector("#editBtn");
+  editButton.innerText = "Edit";
+  editButton.onclick = () => editTodo(todoId);
 };
 
 const addTodo = (event) => {
