@@ -73,7 +73,6 @@ saveTodoChanges = (todoId, updatedTodoName, updatedTodoNotes) => {
   const todoNameElement = todoContent.querySelector("#todoContentHeader");
   const todoNotesElement = todoContent.querySelector("#todoContentNotes");
 
- 
   todoNameElement.innerHTML = updatedTodoName;
   todoNotesElement.innerHTML = updatedTodoNotes;
 
@@ -97,6 +96,15 @@ const addTodo = (event) => {
   todoNotes.value = '';
 };
 
+const getTodo = () => {
+  axios
+      .get(`${baseUrl}/api/todo`)
+      .then((res) => {
+          todoItem(res.data)
+      })
+      .catch((err) => console.log(err))
+};
+
 const deleteTodo = () => {
   axios
   .delete(`${baseUrl}/api/todo`)
@@ -104,5 +112,6 @@ const deleteTodo = () => {
   .catch((err) => console.log(err))
 };
 
+document.addEventListener('DOMContentLoaded', getTodo)
 addToList.addEventListener('click', addTodo)
 clearList.addEventListener('click', deleteTodo)
