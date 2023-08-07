@@ -15,7 +15,9 @@ listItem = (todoArray) => {
   todoArray.forEach((todo) => {
     const todoContent = document.createElement("div")
     todoContent.innerHTML = `
+    <div id = delteBtnSection>
     <button id= "deleteContentBtn" onclick="deleteTodoContent(${todo.todoId})">X</button>
+    </div>
     <header id = "todoContentHeader">
     ${todo.todoName}
     </header>

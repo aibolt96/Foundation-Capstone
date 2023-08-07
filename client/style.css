@@ -1,7 +1,182 @@
-.finished:not(.no-strike-through) {
-    text-decoration: line-through;
-  }
+/* Reset some default styles */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
 
-  #btns button {
-    display: inline-block
+/* Set background color */
+body {
+  background-color: #EDF6F9;
+}
+
+/* Center align everything */
+body {
+  background-color: #EDF6F9;
+  margin: 0; /* Remove default margin */
+  font-family: Arial, sans-serif; /* Set a default font */
+}
+
+main {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 2rem auto;
+  max-width: 1500px;
+}
+
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 0.5rem;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Style the header */
+#pageHeader {
+  background-color: #83C5BE;
+  padding: 1rem 0;
+  text-align: center;
+  width: 100%
+}
+
+#pageName {
+  color: white;
+  font-size: 2rem;
+}
+
+/* Style the todo input section */
+#todoInput {
+  background-color: #E29578;
+  padding: 1rem;
+  border-radius: 10px;
+  text-align: center;
+  width: 30%;
+  box-sizing: border-box;
+  margin-left: 2%;
+}
+
+#todoInput h2 {
+  color: white;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+label, input, textarea, button {
+  display: block;
+  margin: 0.5rem auto;
+  width: 100%;
+}
+
+input[type="text"], textarea {
+  width: 90%;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 5px;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  cursor: pointer;
+}
+
+#addToList {
+  background-color: #83C5BE;
+}
+
+#clearList {
+  background-color: #E29578;
+}
+
+/* Style the list display */
+#listDisplay {
+  flex: 1;
+  margin-left: 2rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: flex-start;
+}
+
+[data-todo-id] {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 1rem;
+  width: calc(33.333% - 1rem);
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+  background-color: white;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle box shadow */
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+
+#todoContentHeader {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  text-align: center;
+}
+
+#todoContentNotes {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+/* Style finished items */
+.finished:not(.no-strike-through) {
+  text-decoration: line-through;
+}
+
+/* Style buttons in the buttons section */
+#btns button {
+  display: inline-block;
+  margin-right: 0.5rem;
+  background-color: #83C5BE;
+}
+
+
+#finishBtn,
+#editBtn,
+#clearList {
+  background-color: #83C5BE;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  transition: background-color 0.3s, transform 0.3s;
+}
+
+[data-todo-id] #deleteBtnSection {
+  display: flex;
+  justify-content: flex-end; /* Align the "X" button to the right */
+  margin-bottom: 0.5rem;
+  background-color:rgb(117, 46, 46)
+}
+
+#deleteContentBtn{
+  background-color: rgb(191, 92, 92);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  margin-right: 0.5rem;
+  width: 10%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  #todoInput input[type="text"], #todoInput textarea {
+    width: 100%;
   }
+}
