@@ -1,4 +1,4 @@
-const baseUrl = `http://localhost:5501`
+const baseUrl = `http://3.145.84.102/`
 const newTodo = document.getElementById('newTodo')
 const todoNotes = document.getElementById('todoNotes')
 const addToList = document.querySelector("#addToList")
