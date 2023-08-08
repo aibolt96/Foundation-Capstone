@@ -83,37 +83,54 @@ saveTodoChanges = (todoId, updatedTodoName, updatedTodoNotes) => {
   editButton.onclick = () => editTodo(todoId);
 };
 
-const addTodo = (event) => {
-  event.preventDefault();
-  const todoBlock = {
-    todoName: newTodo.value,
-    todoNotes: todoNotes.value,
-  };
-  console.log(todoBlock)
-  axios
-  .post(`${baseUrl}/api/todo`, todoBlock)
-  .then((res) => listItem(res.data))
-  .catch((err) => console.log(err))
-  newTodo.value = '';
-  todoNotes.value = '';
+
+const getTodosFromLocalStorage = () => {
+  const storedTodos = localStorage.getItem('todos');
+  return storedTodos ? JSON.parse(storedTodos) : [];
 };
 
+const fetchTodosFromAPI = () => {
+  axios
+    .get(`${baseUrl}/api/todo`)
+    .then((res) => {
+      const apiTodos = res.data;
+      const localTodos = getTodosFromLocalStorage();
+      const combinedTodos = [...apiTodos, ...localTodos];
+      listItem(combinedTodos);
+    })
+    .catch((err) => console.log(err));
+};
+  
 const getTodo = () => {
-  axios
-      .get(`${baseUrl}/api/todo`)
-      .then((res) => {
-          todoItem(res.data)
-      })
-      .catch((err) => console.log(err))
+  fetchTodosFromAPI();
 };
+  
+  const addTodo = (event) => {
+    event.preventDefault();
+    const todoBlock = {
+      todoName: newTodo.value,
+      todoNotes: todoNotes.value,
+    };
+    console.log(todoBlock)
+    axios
+      .post(`${baseUrl}/api/todo`, todoBlock)
+      .then((res) => {
+        fetchTodosFromAPI(); 
+      })
+      .catch((err) => console.log(err));
+    newTodo.value = '';
+    todoNotes.value = '';
+  };
 
-const deleteTodo = () => {
-  axios
+  const deleteTodo = () => {
+    axios
   .delete(`${baseUrl}/api/todo`)
   .then((res) => listItem(res.data))
   .catch((err) => console.log(err))
 };
 
-document.addEventListener('DOMContentLoaded', getTodo)
-addToList.addEventListener('click', addTodo)
-clearList.addEventListener('click', deleteTodo)
+document.addEventListener('DOMContentLoaded', () => {
+  getTodo();
+  addToList.addEventListener('click', addTodo);
+  clearList.addEventListener('click', deleteTodo);
+});
